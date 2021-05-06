@@ -65,8 +65,7 @@ class TinkoffAcquiringSdk {
         throw TinkoffError(message: 'Plugin was already initialized when the initialize() was called.');
     }
 
-    final Map<dynamic, dynamic> response =
-        await (_channel.invokeMethod<Map<String, dynamic>>('initialize', <String, dynamic>{
+    final Map<dynamic, dynamic> response = await (_channel.invokeMethod('initialize', <String, dynamic>{
       'enableDebug': this.enableDebug,
       'terminalKey': this.terminalKey,
       'password': this.password,
@@ -74,7 +73,7 @@ class TinkoffAcquiringSdk {
       'enableGooglePay': this.enableGooglePay,
       'requireAddress': this.requireAddress,
       'requirePhone': this.requirePhone,
-    }) as FutureOr<Map<dynamic, dynamic>>);
+    }));
 
     final TinkoffAcquiringInitializationResponse status =
         TinkoffAcquiringInitializationResponse.fromJson(response.cast<String, dynamic>());
