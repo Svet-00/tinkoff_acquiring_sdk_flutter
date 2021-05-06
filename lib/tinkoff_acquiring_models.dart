@@ -7,7 +7,7 @@ part 'tinkoff_acquiring_models.g.dart';
 class TinkoffError extends Error {
   final String message;
 
-  TinkoffError({this.message});
+  TinkoffError({required this.message});
 
   @override
   String toString() {
@@ -43,9 +43,9 @@ enum TinkoffAcquiringInitializationStatus {
 @JsonSerializable()
 class TinkoffAcquiringInitializationResponse {
   final TinkoffAcquiringInitializationStatus status;
-  final String error;
+  final String? error;
 
-  TinkoffAcquiringInitializationResponse({this.status, this.error});
+  TinkoffAcquiringInitializationResponse({required this.status, this.error});
 
   @override
   String toString() {
@@ -83,11 +83,11 @@ enum TinkoffAcquiringCommonStatus {
 /// Common structure with generalized SDK method data responses
 @JsonSerializable()
 class TinkoffCommonResponse {
-  final TinkoffAcquiringCommonStatus status;
-  final String cardId;
-  final int paymentId;
-  final String rebillId;
-  final String error;
+  final TinkoffAcquiringCommonStatus? status;
+  final String? cardId;
+  final int? paymentId;
+  final String? rebillId;
+  final String? error;
 
   TinkoffCommonResponse(
       {this.status, this.cardId, this.paymentId, this.rebillId, this.error});

@@ -21,9 +21,9 @@ TinkoffAcquiringInitializationResponse
     _$TinkoffAcquiringInitializationResponseFromJson(
         Map<String, dynamic> json) {
   return TinkoffAcquiringInitializationResponse(
-    status: _$enumDecodeNullable(
+    status: _$enumDecode(
         _$TinkoffAcquiringInitializationStatusEnumMap, json['status']),
-    error: json['error'] as String,
+    error: json['error'] as String?,
   );
 }
 
@@ -34,36 +34,30 @@ Map<String, dynamic> _$TinkoffAcquiringInitializationResponseToJson(
       'error': instance.error,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$TinkoffAcquiringInitializationStatusEnumMap = {
@@ -83,10 +77,10 @@ TinkoffCommonResponse _$TinkoffCommonResponseFromJson(
   return TinkoffCommonResponse(
     status: _$enumDecodeNullable(
         _$TinkoffAcquiringCommonStatusEnumMap, json['status']),
-    cardId: json['cardId'] as String,
-    paymentId: json['paymentId'] as int,
-    rebillId: json['rebillId'] as String,
-    error: json['error'] as String,
+    cardId: json['cardId'] as String?,
+    paymentId: json['paymentId'] as int?,
+    rebillId: json['rebillId'] as String?,
+    error: json['error'] as String?,
   );
 }
 
@@ -99,6 +93,17 @@ Map<String, dynamic> _$TinkoffCommonResponseToJson(
       'rebillId': instance.rebillId,
       'error': instance.error,
     };
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
 
 const _$TinkoffAcquiringCommonStatusEnumMap = {
   TinkoffAcquiringCommonStatus.RESULT_OK: 'RESULT_OK',
