@@ -60,7 +60,7 @@ class TinkoffAcquiringSdk {
   /// - if [exceptAlreadyInitialized] is [true] then throw [TinkoffError]
   ///   else do nothing
   Future<TinkoffAcquiringInitializationResponse> initialize({bool exceptAlreadyInitialized = true}) async {
-    if (_status != TinkoffAcquiringSdkStatus.INITIALIZED) {
+    if (_status == TinkoffAcquiringSdkStatus.INITIALIZED) {
       if (exceptAlreadyInitialized)
         throw TinkoffError(message: 'Plugin was already initialized when the initialize() was called.');
     }
